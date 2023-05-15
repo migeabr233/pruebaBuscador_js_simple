@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+<body>
+<div id="search-container">
+  <form id="search-form">
+    <label for="search-input">Buscar imagen:</label>
+    <input type="text" id="search-input" name="search-input">
+    <button type="submit">Buscar</button>
+  </form>
+  <div id="search-results"></div>
+</div>
+<div class="slider--inner">
+  <img src="paisaje.jpg" alt="Una imagen de un paisaje montañoso" id="paisaje">
+  <img src="perro.JPEG" alt="Una imagen de un perro jugando en el parque" id="perro">
+  <img src="descarga.jpg" alt="Una imagen de un grupo de personas en una cena" id="descarga">
+</div>
+<!-- codigo javascript. No lo linkie a un documento porque me dio weva jadkjasd -->
+<script>
+  const searchForm = document.querySelector('#search-form');
+  const searchInput = document.querySelector('#search-input');
+  const sliderInner = document.querySelector('.slider--inner');
+  const searchResults = document.querySelector('#search-results');
+
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const searchTerm = searchInput.value.toLowerCase();
+
+    let resultsHTML = ''; // Crear un string vacío para almacenar los resultados
+
+    const images = sliderInner.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.alt.toLowerCase().includes(searchTerm)) {
+        img.style.border = '2px solid yellow';
+        let link = '';
+        if (img.alt.toLowerCase() === 'una imagen de un paisaje montañoso') {
+          link = 'paisaje.html';
+        } else if (img.alt.toLowerCase() === 'una imagen de un perro jugando en el parque') {
+          link = 'perro.html';
+        } else if (img.alt.toLowerCase() === 'una imagen de un grupo de personas en una cena') {
+          link = 'descarga.html';
+        }
+        resultsHTML += `<p><a href="${link}#${img.id}">${img.alt}</a></p>`; // Agregar un enlace al texto de resultados
+      } else {
+        img.style.border = 'none';
+      }
+    });
+
+    searchResults.innerHTML = resultsHTML; // Actualizar
+  });
+</script>
+</body>
+</html>
